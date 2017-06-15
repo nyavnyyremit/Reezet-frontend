@@ -18,7 +18,7 @@ function* selectUrlParams() {
 
 export function* getList() {
   const urlParams = yield selectUrlParams();
-  const requestURL = `${VARS.API_BASE_URL}/transaction?page=${urlParams.currentPage}`;
+  const requestURL = `${VARS.API_BASE_URL}/api/transaction?page=${urlParams.currentPage}`;
   try {
     const response = yield call(request, requestURL);
     yield put(listLoaded(response.data));
