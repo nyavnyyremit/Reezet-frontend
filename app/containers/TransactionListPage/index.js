@@ -5,11 +5,21 @@ import styled from 'styled-components';
 import Pagination from 'components/Pagination';
 
 import { connect } from 'react-redux';
-import { toJS } from 'immutable';
 import { init, page } from './actions';
 
 const ListWrapper = styled.div`
   margin-top: 45px;
+`;
+
+const Item = styled.div`
+  display: flex;
+  &>div {
+    width: 33%;
+  }
+`;
+
+const Download = styled.a`
+  color: #aa7985;
 `;
 
 class TransactionListPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -29,9 +39,11 @@ class TransactionListPage extends React.PureComponent { // eslint-disable-line r
 		      <ListWrapper>
 		      	<div>
 		      		{list.map((item) => 
-              	<div key={`item_${item._id}`}>
-              		{item._id}
-              	</div>
+              	<Item key={`item_${item._id}`}>
+                  <div>{item._id}</div>
+                  <div>{item.created_on}</div>
+                  <Download href={item.path}>download</Download>
+              	</Item>
               )}
 		      	</div>
             {this.props.pagination &&

@@ -28,12 +28,16 @@ export default function createRoutes(store) {
       name: 'attachment-list',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
+          import('containers/AttachmentListPage/reducer'),
+          import('containers/AttachmentListPage/sagas'),
           import('containers/AttachmentListPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('attachment', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 
